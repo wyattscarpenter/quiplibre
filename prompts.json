@@ -1,0 +1,24 @@
+/* 
+*  This file is released into the public domain under CC0
+*  (see https://creativecommons.org/publicdomain/zero/1.0/ for more info).
+*  By adding any content to this file, or knowingly causing any content to be
+*  added to this file, including (but not limited to) by submitting a pull
+*  request that modifies this file, or requesting that such a pull request
+*  be made, you irrevocably agree to release said content under CC0, and
+*  certify that you have the legal authority to do so.
+*/
+
+prompts = [
+	"___ was my nickname in high school.",
+	"___ was my band name in high school.",
+	"That's why they call me Johnny ___.",
+	"What's a bad name for a child?",
+	"What's the best superpower?",
+	"On his deathbed, Otto von Bismarck apocryphally predicted that ___ would cause World War One.",
+	"What is Garrison Keillor's personal hell?",
+	"What's a fun game to play during a roadtrip?",
+	"It was weird that grandpa kept ___",
+	"What's a good name for a superhero dog?",
+	"Critics are raving about the new children's cartoon about the Holocaust, ___",
+	
+]
