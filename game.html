@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="prevDiv"></div>
-<div id="playDiv">Hi, welcome to Quiplibre!<br>No players established.</div>
+<div id="playDiv">Hi, welcome to Quiplibre! Connect to wifi and visit happyfuntimes.net to join!<br>No players established.</div>
 <div id="buttonDiv"><button id="startButton" onClick="nextRound()">start the game</button></div>
 </body>
 <script src="prompts.json"></script><!-- Databases are for suckers -->
@@ -15,6 +15,8 @@ const happyfuntimes = require('happyfuntimes');
 
 const server = new happyfuntimes.GameServer();
 
+attr = '<div id="attrDiv"><i>QuipLibre is free software, under <a href="LICENSE.txt">AGPL v3+</a>. Its source code can be found <a href="https://github.com/wyattscarpenter/quiplibre">here</a>.</i></div>'
+prevDiv.innerHTML = attr;
 // A new player has arrived.
 server.on('playerconnect', function(netPlayer) {
 	if (!gameBegun){
@@ -129,7 +131,7 @@ Player.prototype.toString = function(){return this.name};
 //game logic fns
 function nextRound(){
 	if (players.length <= 1){
-		display("You need at least two people to connect"+
+		display("You need at least two people to connect "+
 			"in order to play Quiplibre."
 		);
 	} else {
@@ -189,14 +191,16 @@ function endGame(){
 	sortPlayers();
 		display("<p>End of the game! Here's a scoreboard:</p>"+
 			players.reduce(function f(acc, p){
-				return acc+"<br>"+p.name+": "+p.score;
+				return acc+p.name+": "+p.score+"<br>";
 			}, "")+
 			"<br><button onclick=\"newGame()\" value>New Game with Same Players</button>"+
 			"<br><button onclick=\"location.reload()\" value>New Game with New Players</button>"+
 			"<br><a href=\"https://github.com/wyattscarpenter/quiplibre\">"+
 				"Submit prompts or improvements at Github"+
 			"</a>"
-		) //todo: could send something to players
+		)
+		prevDiv.innerHTML = attr;
+		//todo: could send something to players
 }
 
 function newGame(){
