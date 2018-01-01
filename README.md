@@ -18,7 +18,7 @@ This is Quiplibre, a Free Software alternative to Quiplash. It relies on the [Ha
 
 ## How do I run this thing?
 1. clone this git repo, or download the zip file and extract it to where ever you want this project to live
-2. Install (Node.js)[https://nodejs.org/en/] on your computer, if it isn't already installed
+2. Install [Node.js](https://nodejs.org/en/) on your computer, if it isn't already installed
 3. run "npm install" on the directory (this is what RUNMEFIRSTTIME(.sh|.bat) does)
 4. each time you want to run the game, run "npm start" in the directory (this is what RUNME(.sh|.bat) does)
 
@@ -34,4 +34,4 @@ Yeah, I couldn't be bothered. If you'd like to try to spruce Quiplibre up, go ri
 Raise an issue or submit a pull request on https://github.com/wyattscarpenter/quiplibre. Only submit prompts you have the legal right and volition to release under the project's license, though. Don't be stealing copyrighted works to submit as Quiplash prompts!
 
 ## What's the license of this project?
-Every part of this project is released under the license found in [LICENSE.txt]. This project depends on various other projects, which are not our responsibility and which are released under their own licenses.
+This project is released under the license found in [LICENSE.txt](LICENSE.txt). This project depends on various other projects, which are not our responsibility and which are released under their own licenses.
