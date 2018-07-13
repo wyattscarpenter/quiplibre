@@ -3,9 +3,9 @@ Quiplibre
 
 This is Quiplibre, a Free Software alternative to Quiplash. It relies on the [HappyFunTimes party games system](http://greggman.github.io/HappyFunTimes).
 
-## How do I run this thing?
-1. clone this git repo, or download the zip file and extract it to where ever you want this project to live
-2. Install [Node.js](https://nodejs.org/en/) on your computer, if it isn't already installed
+## How do I work this?
+1. Install [Node.js](https://nodejs.org/en/) on your computer, if it isn't already installed
+2. clone this git repo, or download the zip file and extract it to where ever you want this project to live
 3. run "npm install" on the directory (this is what RUNMEFIRSTTIME.bat does)
 4. each time you want to run the game, run "npm start" in the directory (this is what RUNME.bat does)
 (If you aren't using Windows, please note that the batch files I just mentioned are also valid shell scripts, so you can still use them. If you *are* using Windows, just ignore this parenthetical entirely.)
