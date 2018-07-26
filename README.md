@@ -15,7 +15,7 @@ Open a browser window and go to http://happyfuntimes.net. This should connect yo
 
 NOTE: HappyFunTimes claims it will only work on home network, and is unlikely to work on corporate networks, coffee shops, airport WiFi, etc...
 
-##Can I write my own custom prompts?
+## Can I write my own custom prompts?
 Sure, just modify prompts.json. It's a big ol' list of prompts. You must surround your prompt in quotation marks (either 'single' or "double") and after the closing quotation mark put a comma. Give it a shot!
 
 You might want to make a copy of the unaltered prompts.json first and put it somewhere convenient, so you can go back to the default prompts easily.
