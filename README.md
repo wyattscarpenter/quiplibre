@@ -4,7 +4,7 @@ Quiplibre
 This is Quiplibre, a Free Software alternative to Quiplash. It relies on the [HappyFunTimes party games system](http://greggman.github.io/HappyFunTimes).
 
 ## How do I work this?
-1. If you have the quiplibre executable in this folder, run the executable. The executable can be found in the releases tab of this project's github page.
+1. If you have the quiplibre executable, run the executable. The executable can be found in the releases tab of this project's github page.
 
 Alternatively:
 
