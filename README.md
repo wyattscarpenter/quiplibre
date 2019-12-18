@@ -4,6 +4,10 @@ Quiplibre
 This is Quiplibre, a Free Software alternative to Quiplash. It relies on the [HappyFunTimes party games system](http://greggman.github.io/HappyFunTimes).
 
 ## How do I work this?
+1. If you have the quiplibre executable in this folder, run the executable. The executable can be found in the releases tab of this project's github page.
+
+Alternatively:
+
 1. Install [Node.js](https://nodejs.org/en/) on your computer, if it isn't already installed
 2. clone this git repo, or download the zip file and extract it to where ever you want this project to live
 3. run "npm install" on the directory (this is what RUNMEFIRSTTIME.bat does)
