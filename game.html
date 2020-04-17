@@ -6,7 +6,10 @@
 </head>
 <body>
 <div id="prevDiv"></div>
-<div id="playDiv">Hi, welcome to Quiplibre! Connect to wifi and visit happyfuntimes.net to join!<br>No players established.</div>
+<div id="playDiv" style="font-size: 10vmin;">Hi, welcome to Quiplibre! Connect to wifi and visit happyfuntimes.net to join!<br>
+  No players established.<br>
+  (You need at least two people to connect in order to play Quiplibre.)
+</div>
 <div id="buttonDiv"><button id="startButton" onClick="nextRound()">start the game</button></div>
 </body>
 <script src="prompts.json"></script><!-- Databases are for suckers -->
@@ -131,9 +134,7 @@ Player.prototype.toString = function(){return this.name};
 //game logic fns
 function nextRound(){
 	if (players.length <= 1){
-		display("You need at least two people to connect "+
-			"in order to play Quiplibre."
-		);
+//do nothing
 	} else {
 		gameBegun = true;
 		round++;
