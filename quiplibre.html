@@ -205,7 +205,7 @@ function progressJudgement(){
   if (playerPairs.length != 0){
     pp = playerPairs.splice(Math.floor(Math.random()*playerPairs.length), 1)[0];
     display("<p><b>"+pp[2]+"</b></p>"+"<p>"+pp[0].answers[0]+"<br>OR<br>"+pp[1].answers[1]+"</p>");
-    choices = [pp[0].answers[0],pp[1].answers[1]];
+    choices = [pp[0].answers[0],pp[1].answers[1], pp[2]];
     allPlayers(function f(p){
       p.send(["displayChoice", choices]);
       p.state = "choosing";
@@ -336,7 +336,7 @@ function displayPrompt(prompt) {
 function displayChoice(choices){
   console.log(choices);
   hideForm();
-  display("<button id=\"choice0\" onClick=\"sendChoice(0)\">"+choices[0]+"</button>"+
+  display(choices[2]+"<br><button id=\"choice0\" onClick=\"sendChoice(0)\">"+choices[0]+"</button>"+
   "<br>OR<br><button id=\"choice1\" onClick=\"sendChoice(1)\">"+choices[1]+"</button>");
 }
 
@@ -421,7 +421,7 @@ prompts = [
   "The only emperor is the emperor of __.",
   "Jet fuel can't melt __.",
   "What's your first order when you become president?",
-  "What's a name you glad you avoided having your parents pick for you?",
+  "What's a name you're glad you avoided having your parents pick for you?",
   "Beware the Jabberwock, my son! The __ that bite, the claws that __!",
   "A vast image out of Spiritus Mundi troubles my sight: somewhere in sands of the desert a shape with lion body and the head of __.",
   "Send not to know for whom the bell tolls, it tolls for __.",
