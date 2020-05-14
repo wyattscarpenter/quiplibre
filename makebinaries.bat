@@ -1,0 +1,1 @@
+electron-packager . --overwrite --all --icon=favicon.png
