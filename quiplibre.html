@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Quiplibre</title>
+  <link rel="icon" href="favicon.png" type="image/png"> <!-- TODO: embed favicon? -->
+</head>
+<body>
+<form id="form" onSubmit="join(inputBox.value)" target="playDiv" formaction="#">
+Enter a room name
+		<input id="inputBox"></input>
+then <input type="submit" value="Join"></input> or <input type="button" value="Host" onClick='host(inputBox.value)'></input>
+</form>
+<script src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+<script>
+form.addEventListener("submit", function(event){event.preventDefault();}, false);
+//connection = new RTCPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]});
+//todo: paste game logic and prompts
+
+function join(name){
+  var peer = new Peer();
+  peer.on('open', function(id) {
+    console.log('My peer ID is: ' + id);
+    conn = peer.connect(name);
+    conn.on('open', function() {
+      // Receive messages
+      conn.on('data', function(data) {
+        console.log('Received', data);
+      });
+      //setTimeout(function(){conn.send('Hello!');},6000);
+      conn.send('Hello!');
+    });
+  });
+}
+
+function host(name){
+  var peer = new Peer(name);
+  peer.on('open', function(id) {
+    console.log('My peer ID is: ' + id);
+    peer.on('connection', function(conn){
+      console.log("receiving a connection");
+      conn.on('open', function() {
+        // Receive messages
+	console.log("connection ready, setting up console.log");
+        conn.on('data', function(data) {
+          console.log('Received', data);
+        });
+        //conn.send('Hello!');
+      });
+    });
+  });
+}
+
+//todo: King?
+
+
+</script>
+</html>
