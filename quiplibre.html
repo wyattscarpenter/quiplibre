@@ -24,10 +24,15 @@
 form.addEventListener("submit", function(event){event.preventDefault();}, false);
 
 function toQuiplibreRoomId(s){return "quiplibre_"+(s.toLowerCase().replace(/[^a-z]/g, ""));}
+function errorAlert(error){
+  alert("There has been a networking error; if you find yourself unable to play, please refresh the page.\n"+error);
+  console.log(error);
+}
 
 function join(name){
   roomid = toQuiplibreRoomId(name);
-  var peer = new Peer();
+  var peer = new Peer({debug: 3});
+  peer.on('error', errorAlert);
   peer.on('open', function(id) {
     console.log('My peer ID is: ' + id);
     conn = peer.connect(roomid);
@@ -46,7 +51,8 @@ function join(name){
 function host(name){
   //connect
   roomid = toQuiplibreRoomId(name);
-  var peer = new Peer(roomid);
+  var peer = new Peer(roomid,{debug: 3});
+  peer.on('error', errorAlert);
   peer.on('open', function(id) {
     console.log('My peer ID is: ' + id);
     peer.on('connection', function(conn){
