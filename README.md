@@ -4,9 +4,9 @@ Quiplibre
 This is Quiplibre, a Free Software alternative to Quiplash.
 
 ## How do I work this?
-Quiplibre is available by viewing quiplibre.html in a web browser. You can either download the html file and view it locally, or visit https://wyattscarpenter.github.io/quiplibre/ on your phone or computer or what have you.
+Quiplibre is available by viewing quiplibre.html in a web browser. You can either download the html file and view it locally, or visit https://wyattscarpenter.github.io/quiplibre/ on your phone or computer or whatever.
 
-Once you are looking at quiplibre, you will be given a chance to host a new game or join a new game as a player.
+Once you are looking at quiplibre, you will be given a chance to host a new game or join a game as a player.
 
 NOTE: You must be connected to the internet to play quiplibre.
 
@@ -15,7 +15,7 @@ NOTE: You must be connected to the internet to play quiplibre.
 Sure! Just open a hosting session, and then have each player including yourself open a joining session. Quiplibre is still mostly functional even without a "big screen" everyone can see.
 
 ## Can I write my own custom prompts?
-Sure, just modify the prompts array in the html file. It's a big ol' list of prompts, named prompts. You must surround your prompt in quotation marks (either 'single' or "double") and after the closing quotation mark put a comma. Give it a shot!
+Sure, just modify the prompts array in the html file. It's a big ol' list of prompts, named `prompts`. You must surround your prompt in quotation marks (either 'single' or "double") and after the closing quotation mark put a comma. Give it a shot!
 
 You might want to make a copy of the unaltered prompts first and put it somewhere convenient, so you can go back to the default prompts easily.
 
