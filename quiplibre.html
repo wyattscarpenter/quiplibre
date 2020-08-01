@@ -9,7 +9,7 @@
 <body>
 <h1 id="roomname">Quiplibre</h1>
 <div id="nameDiv"></div><div id="pointsDiv"></div>
-<div id="prevDiv"></div>
+<div id="prevDiv"><div id="attrDiv"><i>Quiplibre is free software, under <a href="LICENSE.txt">AGPL v3+</a>. Its source code can be found <a href="https://github.com/wyattscarpenter/quiplibre">here</a>.</i></div></div>
 <div id="playDiv" style="font-size: 10vh;">
   Enter a room name <input id="roomBox"></input> then <button onclick="join(roomBox.value)">Join</button> or <button onClick='host(roomBox.value)'>Host</button>
 </div>
@@ -76,8 +76,6 @@ function host(name){
 //big screen stuff
 function becomeBigScreen(name){
 roomname.innerHTML += ": "+name
-attr = '<div id="attrDiv"><i>Quiplibre is free software, under <a href="LICENSE.txt">AGPL v3+</a>. Its source code can be found <a href="https://github.com/wyattscarpenter/quiplibre">here</a>.</i></div>'
-prevDiv.innerHTML = attr;
 playDiv.innerHTML = "Hi, welcome to Quiplibre! Visit https://wyattscarpenter.github.io/quiplibre/ to join! Room code: "+name+"<br>"+
   "No players established.<br>"+
   "(You need at least two people to connect in order to play Quiplibre.)";
