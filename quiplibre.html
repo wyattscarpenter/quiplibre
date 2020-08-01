@@ -8,8 +8,9 @@
 </head>
 <body>
 <h1 id="roomname">Quiplibre</h1>
+<div id="attrDiv"><i>Quiplibre is free software, under <a href="LICENSE.txt">AGPL v3+</a>. Its source code can be found <a href="https://github.com/wyattscarpenter/quiplibre">here</a>.</i></div>
 <div id="nameDiv"></div><div id="pointsDiv"></div>
-<div id="prevDiv"><div id="attrDiv"><i>Quiplibre is free software, under <a href="LICENSE.txt">AGPL v3+</a>. Its source code can be found <a href="https://github.com/wyattscarpenter/quiplibre">here</a>.</i></div></div>
+<div id="prevDiv"></div>
 <div id="playDiv" style="font-size: 10vh;">
   Enter a room name <input id="roomBox"></input> then <button onclick="join(roomBox.value)">Join</button> or <button onClick='host(roomBox.value)'>Host</button>
 </div>
@@ -45,7 +46,7 @@ function join(name){
       conn.send('Hello!');
     });
   });
-  becomeSmallScreen();
+  becomeSmallScreen(name);
 }
 
 function host(name){
@@ -242,7 +243,7 @@ function endGame(){
         "Submit prompts or improvements at Github"+
       "</a>"
     )
-    prevDiv.innerHTML = attr;
+    attrDiv.style.visibility = ""; //show, by removing visibility: hidden;
     //todo: could send something to players
 }
 
@@ -298,14 +299,17 @@ function sortPlayers(){//descending. In-place and returns arr
 }
 
 //small screen stuff
-function becomeSmallScreen(){
+function becomeSmallScreen(name){
+  const attrDiv = document.querySelector('#attrDiv');
   const nameDiv = document.querySelector('#nameDiv');
   const pointsDiv = document.querySelector('#pointsDiv');
   const playDiv = document.querySelector('#playDiv');
   const form = document.querySelector('#form');
   const inputBox = document.querySelector('#inputBox');
 
+  roomname.innerHTML += ": "+name
   playDiv.innerHTML = "Connecting to quiplibre host...";
+  attrDiv.style.visibility="hidden"; //hide so the player can't accidentally click the links
 }
 
 function showForm(){
