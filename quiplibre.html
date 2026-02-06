@@ -92,7 +92,7 @@ buttonDiv.style = ""; //show, by removing display: none;
 var gameBegun = false;
 var playerId = 0;
 var players = [];
-var playerPairs = [];
+var playerMatchups = [];
 var pp = []; //the current playerPair
 var round = 0;
 const maxRounds = 3; //a nice number of rounds
@@ -190,12 +190,16 @@ function nextRound(){
     gameBegun = true;
     round++;
     if (round <= maxRounds){
-      allPlayers(function f(p){p.prompts = []; p.answers = []});
+      allPlayers(p => {p.prompts = []; p.answers = []});
       var len = players.length
-      for (var i=0; i<len; ++i) { //todo: could refactor this to use allPlayers
-        playerPairs.push([players[i], pullRandomPlayer(players[i]), pullPrompt()]);
-        playerPairs[i][0].prompts[0] = playerPairs[i][2];
-        playerPairs[i][1].prompts[1] = playerPairs[i][2];
+      for (var i=0; i<len; ++i) { //could: refactor this to use allPlayers
+        //TODO: this is an embarassingly naive shuffle function and easily crashes in the 3-player case 50% of the time.
+        const pr = pullPrompt();
+        const pli = players[i];
+        const plr = pullRandomPlayer(players[i]);
+        playerMatchups.push([pli, plr, pr]);
+        pli.prompts[0] = pr;
+        plr.prompts[1] = pr;
       }
       for (var i=0; i<len; ++i) {
         players[i].send(["displayPrompt", players[i].prompts[0]]);
@@ -212,8 +216,8 @@ function nextRound(){
 
 function progressJudgement(){
   votes = [0,0];
-  if (playerPairs.length != 0){
-    pp = playerPairs.splice(Math.floor(Math.random()*playerPairs.length), 1)[0];
+  if (playerMatchups.length != 0){
+    pp = playerMatchups.splice(Math.floor(Math.random()*playerMatchups.length), 1)[0];
     display("<p><b>"+pp[2]+"</b></p>"+"<p>"+pp[0].answers[0]+"<br>OR<br>"+pp[1].answers[1]+"</p>");
     choices = [pp[0].answers[0],pp[1].answers[1], pp[2]];
     allPlayers(function f(p){
@@ -248,7 +252,7 @@ function endGame(){
       "</a>"
     )
     attrDiv.style.visibility = ""; //show, by removing visibility: hidden;
-    //todo: could send something to players
+    //could: send something to players
 }
 
 function newGame(){
@@ -276,16 +280,27 @@ function pullPrompt(){
 
 randomPlayers = [];
 function pullRandomPlayer(excludedPlayer){
-  //remember that excludedPlayer is just a reference to a player
-  //use slice to shallow-copy array
-  if (randomPlayers.length == 0){randomPlayers = players.slice()};
-  tmpPlayers = randomPlayers.filter(function f(p){return (p != excludedPlayer)});
-  var i = Math.floor(Math.random()*(tmpPlayers.length-1));
-  randomPlayers = randomPlayers.filter(function f(p){return (p != tmpPlayers[i])})
-  return tmpPlayers[i];
+  /** Pull, without replacement, a random player from the stateful (auto-refreshing) backing array of this fn.
+   * @param excludedPlayer is just a reference to a player, who cannot be picked
+   * It's your responsibility as a caller to never pull when
+   *   there's only the excludedPlayer in the backing array. Think about it!
+   *   (Luckily, this function is only ever used in one place lol.)
+  */
+  if (randomPlayers.length == 0) {
+    // If we've pulled everyone, use slice to shallow-copy array again.
+    randomPlayers = players.slice()
+  }
+  //hidden in this function, not leaking outside, we can use blessed snake case
+  const choosable_players = randomPlayers.filter(p => p != excludedPlayer);
+  const random_choice_index = Math.floor(Math.random()*(choosable_players.length-1));
+  const chosen_player = choosable_players[random_choice_index];
+  // Take the chosen player out of the backing array, then return.
+  randomPlayers = randomPlayers.filter(p => p != chosen_player)
+  return chosen_player;
 }
 
-function allPlayers(pred){ //query all players or apply a fn to them
+function allPlayers(pred){
+  /** query all players or apply a fn to them */
   ret = true;
   var len = players.length
   for (var i=0; i<len; ++i) {
@@ -295,11 +310,11 @@ function allPlayers(pred){ //query all players or apply a fn to them
 }
 
 function allPlayersHaveAnswered(){
-  return allPlayers(function f(p){return p.answers.length==2;});
+  return allPlayers(p => p.answers.length==2);
 }
 
 function sortPlayers(){//descending. In-place and returns arr
-  return players.sort(function f(a, b){return (b.score - a.score)});
+  return players.sort((a, b) => (b.score - a.score));
 }
 
 //small screen stuff
