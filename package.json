@@ -1,0 +1,22 @@
+{
+  "name": "quiplibre",
+  "version": "2.3.0",
+  "description": "Quiplibre =========",
+  "main": "peerjs.min.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyattscarpenter/quiplibre.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyattscarpenter/quiplibre/issues"
+  },
+  "homepage": "https://github.com/wyattscarpenter/quiplibre#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.1"
+  }
+}

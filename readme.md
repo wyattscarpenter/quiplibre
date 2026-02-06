@@ -61,3 +61,9 @@ Games that are like [Quiplash](https://www.jackboxgames.com/quiplash/) could per
 * the various forks of Quiplibre are cool! I haven't looked over them in depth, but some of them probably have better UX than Quiplibre itself https://github.com/wyattscarpenter/quiplibre/forks?include=active&page=1&period=&sort_by=stargazer_counts
 * there are various quiplash-related repos on github, some of them apparently open source quiplikes, which is nice :) https://github.com/search?q=quiplash&type=repositories
 * there may have been, in human history, various times at which someone invented "write funny answers to amusing prompts" as a game, but I haven't looked into it.
+
+## Developer information
+
+This project uses Playwright for some basic testing. This means it has the scaffolding of an npm project, even though it's really just an html file.
+
+I tried to convince tsc to typecheck the js in the html for me, as an additional static check, but it did not want to operate on that file extension, alas.
