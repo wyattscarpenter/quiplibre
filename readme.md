@@ -64,6 +64,8 @@ Games that are like [Quiplash](https://www.jackboxgames.com/quiplash/) could per
 
 ## Developer information
 
-This project uses Playwright for some basic testing. This means it has the scaffolding of an npm project, even though it's really just an html file.
+This project uses Playwright for some basic testing. This means it has the scaffolding of an npm project, even though it's really just an html file. The tests are rather shallow, because I ran out of patience about them. They may also be flaky.
 
 I tried to convince tsc to typecheck the js in the html for me, as an additional static check, but it did not want to operate on that file extension, alas.
+
+According to my attempts at autonomous testing, webkit browsers do not support WebRTC/PeerJS, or vice-versa. So Quiplibre won't work on them. Please let me know if that's right or wrong. Especially if you can fix the error I encountered during testing! I do not have access to a webkit browser myself (Safari, etc); and the failure is surprising given what they claim to support. Some of the information on https://www.kirsle.net/journey-to-get-webrtc-working-well-in-safari might be relevant to this.

@@ -38,6 +38,5 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
     await expect(additionalPage.locator('body')).toContainText('What is your name?', { timeout: 2000 });
   }
 
-  //TODO: it never switches for webkit, a browser I don't even have? wait I probably just have to bump peerjs version
-
+  //TODO: write the rest of a test session
 });
