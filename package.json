@@ -1,6 +1,6 @@
 {
   "name": "quiplibre",
-  "version": "2.3.0",
+  "version": "2.3.0-dev",
   "description": "Quiplibre =========",
   "main": "peerjs.min.js",
   "scripts": {},
