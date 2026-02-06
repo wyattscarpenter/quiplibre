@@ -1,8 +1,8 @@
 {
   "name": "quiplibre",
   "version": "2.3.0-dev",
-  "description": "Quiplibre =========",
-  "main": "peerjs.min.js",
+  "description": "A party game about answering prompts cleverly.",
+  "main": "quiplibre.html",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/wyattscarpenter/quiplibre/issues"
   },
