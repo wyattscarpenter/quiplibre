@@ -222,7 +222,7 @@ function progressJudgement(){
     pp = playerMatchups.splice(Math.floor(Math.random()*playerMatchups.length), 1)[0];
     display("<p><b>"+pp[2]+"</b></p>"+"<p>"+pp[0].answers[0]+"<br>OR<br>"+pp[1].answers[1]+"</p>");
     choices = [pp[0].answers[0],pp[1].answers[1], pp[2]];
-    allPlayers(function f(p){
+    allPlayers(p => {
       p.send(["displayChoice", choices]);
       p.state = "choosing";
     });
@@ -243,24 +243,22 @@ function awardPoints(){
 
 function endGame(){
   sortPlayers();
-    display("<p>End of the game! Here's a scoreboard:</p>"+
-      players.reduce(function f(acc, p){
-        return acc+p.name+": "+p.score+"<br>";
-      }, "")+
-      "<br><button onclick=\"newGame()\" value>New Game with Same Players</button>"+
-      "<br><button onclick=\"location.reload()\" value>New Game with New Players</button>"+
-      "<br><a href=\"https://github.com/wyattscarpenter/quiplibre\">"+
-        "Submit prompts or improvements at Github"+
-      "</a>"
-    )
-    attrDiv.style.visibility = ""; //show, by removing visibility: hidden;
-    //could: send something to players
+  display("<p>End of the game! Here's a scoreboard:</p>"
+    + players.reduce((acc, p) => (acc+p.name+": "+p.score+"<br>"), "")
+    + "<br><button onclick=\"newGame()\" value>New Game with Same Players</button>"
+    + "<br><button onclick=\"location.reload()\" value>New Game with New Players</button>"
+    + "<br><a href=\"https://github.com/wyattscarpenter/quiplibre\">"
+    +   "Submit prompts or improvements at Github"
+    + "</a>"
+  )
+  attrDiv.style.visibility = ""; //show, by removing visibility: hidden;
+  //could: send something to players
 }
 
 function newGame(){
   prevDiv.innerHTML = "Previous winner: "+players[0];
   round = 0;
-  allPlayers(function f(p){
+  allPlayers(p => {
     p.score=0;
     p.send(["updateScore", 0]);
   });
@@ -273,10 +271,11 @@ function display(html){playDiv.innerHTML = html;}
 function computeScore(i){return votes[i] * round}
 
 function pullPrompt(){
-  if (prompts.length == 0){
-    return "What's a good prompt for a round of Quiplibre?"+
-      " (Please send us the winning answer of this round, "+
-      "as you have exhausted our list of prompts)";}
+  if (prompts.length == 0) {
+    return "What's a good prompt for a round of Quiplibre? "
+      + "(Please send us the winning answer of this round, "
+      + "as you have exhausted our list of prompts)";
+  }
   return prompts.splice(Math.floor(Math.random()*prompts.length), 1)[0];
 }
 
@@ -315,7 +314,8 @@ function allPlayersHaveAnswered(){
   return allPlayers(p => p.answers.length==2);
 }
 
-function sortPlayers(){//descending. In-place and returns arr
+function sortPlayers(){
+  /** Sort the players array, descending by score. In-place and returns arr */
   return players.sort((a, b) => (b.score - a.score));
 }
 
@@ -505,7 +505,7 @@ function handle(instruction, details){
 
 function handlePlayer(conn, instruction, details){
   //this seems circuitous but other ways didn't work
-  return allPlayers(function(player){
+  return allPlayers(player => {
     if(player.conn==conn){
       return player[instruction](details);
     }
