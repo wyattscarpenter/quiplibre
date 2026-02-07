@@ -295,7 +295,7 @@ function pullRandomPlayer(excludedPlayer){
   }
   //hidden in this function, not leaking outside, we can use blessed snake case
   const choosable_players = randomPlayers.filter(p => p != excludedPlayer);
-  const random_choice_index = Math.floor(Math.random()*(choosable_players.length-1));
+  const random_choice_index = Math.floor(Math.random()*choosable_players.length);
   const chosen_player = choosable_players[random_choice_index];
   // Take the chosen player out of the backing array, then return.
   randomPlayers = randomPlayers.filter(p => p != chosen_player)

@@ -98,6 +98,8 @@ Here, the algorithm has selected 2 to fight 1 and 1 to fight 2. Therefore, its l
     1 2 3
     2 3 1
 
+Oh — actually, I've learned that due to a bug in my random selection algorithm, this was always wrong, and would always fail for any number of players greater than 2. 2 being, unfortunately, the main way I would manually test it. The bug was: unlike every other random choice algorithm in this program, for this I wrote rand*(length-1) instead of rand*length. This was presumably because I had previously written it rand*(length-1) for the length of the unfiltered array, and when I started using the filtered array length directly I forgot to change it to not subtract 1. So, it would never be allowed to pick the last element, and thus always crash. It would be bad even without this bug, as it would sometimes not work, but never working is even worse.
+
 It's worth noting that this is actually worse than the dullard's shuffle and the ordinary shuffle, because it crashes the program. Let's call this the "superbly bad shuffle".
 
 Now, on to the good shuffle. I decided to go at it another way. Let's secure the no-self property first. We can do this very simply by shifting once left or once right, wrapping around on the edges. Here I choose left.
