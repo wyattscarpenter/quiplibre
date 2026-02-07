@@ -10,6 +10,8 @@ test('has right title', async ({ page }) => {
 
 test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, context }) => {
   // You can't see Math.random, so... just run this test a couple times, I guess.
+  //  Furthermore, the networking in the tests are real and thus have random latency. I have tried to set large maximum timeouts to prevent false positive (failures) but it's bound to happen eventually. Especially if you disconnect from wifi ;)
+  //  ...Seems like it sometimes fails for firefox as well, on a step (joining) where I wouldn't expect a logic error in *my* program to be possible...
   const n = 3; // Number of players
 
   hostPage.on('pageerror', (error) => {throw error;}); //This will fail the test on any unhandled error, allegedly, although I'm having a hard time getting that to happen. cf also below
@@ -32,7 +34,7 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   for (let i = 0; i < n; i++) {
     const newPage = await context.newPage();
     newPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error
-    //newPage.on('console', msg => console.log(msg.text()));
+    newPage.on('console', msg => console.log(msg.text()));
     await newPage.goto('http://localhost:8080/quiplibre.html');
     await newPage.getByRole('textbox').fill('delicious test value');
     await newPage.getByRole('button', { name: 'join' }).click();
@@ -41,14 +43,14 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
 
   // Expect all pages to show "What is your name?" (might show "connecting" first)
   for (const additionalPage of additionalPages) {
-    await expect(additionalPage.locator('body')).toContainText('What is your name?', { timeout: 2000 });
+    await expect(additionalPage.locator('body')).toContainText('What is your name?', { timeout: 10000 });
   }
   //I'm not worried about testing the actual name-setting logic. They can have default names. Could: test that, I suppose.
 
   //start the game proper
   await hostPage.getByRole('button', { name: 'start the game' }).click();
   //This next step failed ⅔ of the time with the "superbly bad shuffle":
-  await expect(hostPage.locator('body')).toContainText('Time for a nice round of Quiplibre!');
+  await expect(hostPage.locator('body')).toContainText('Time for a nice round of Quiplibre!', { timeout: 10000 });
 
   // Have each player answer the first prompt
   for (const additionalPage of additionalPages) {
