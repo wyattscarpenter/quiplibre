@@ -45,7 +45,7 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
 
-    //It seems like webkit doesn't support peerjs, or vice-versa. Cf bottom of readme.
+    //It seems like webkit doesn't support peerjs, or vice-versa. Cf readme.
 /*
     {
       name: 'webkit',
@@ -77,7 +77,8 @@ export default defineConfig({
   webServer: {
     command: 'npx http-server -p 8080 .',
     url: 'http://localhost:8080',
-  //   reuseExistingServer: !process.env.CI,
+    //I'm not sure if this would mess something up, so I didn't enable it:
+    //reuseExistingServer: !process.env.CI,
   },
 });
 

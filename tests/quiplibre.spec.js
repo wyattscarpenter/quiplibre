@@ -9,9 +9,10 @@ test('has right title', async ({ page }) => {
 });
 
 test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, context }) => {
-  const n = 3; // Number of additional clients
+  const n = 3; // Number of players
 
-  // Listen for all console logs
+  hostPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error
+  // You can listen for all console logs by uncommenting this (see also below for the players)
   hostPage.on('console', msg => console.log(msg.text()));
   
   await hostPage.goto('http://localhost:8080/quiplibre.html');
@@ -21,12 +22,16 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   await hostPage.getByRole('button', { name: 'host' }).click();
   // Expect host page to include the joinable url
   await expect(hostPage.locator('body')).toContainText('#delicioustestvalue');
+  //make sure clicking "start the game" doesn't do anything yet
+  await hostPage.getByRole('button', { name: 'start the game' }).click();
+  await expect(hostPage.locator('body')).toContainText('#delicioustestvalue');
 
-  // Create n additional clients
+  // Create players
   const additionalPages = [];
   for (let i = 0; i < n; i++) {
     const newPage = await context.newPage();
-    newPage.on('console', msg => console.log(msg.text()));
+    newPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error (although the output is often confusing and doesn't immediately halt the test, it seems)
+    //newPage.on('console', msg => console.log(msg.text()));
     await newPage.goto('http://localhost:8080/quiplibre.html');
     await newPage.getByRole('textbox').fill('delicious test value');
     await newPage.getByRole('button', { name: 'join' }).click();
@@ -37,6 +42,32 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   for (const additionalPage of additionalPages) {
     await expect(additionalPage.locator('body')).toContainText('What is your name?', { timeout: 2000 });
   }
+  //I'm not worried about testing the actual name-setting logic. They can have default names.
+
+  //start the game proper
+  await hostPage.getByRole('button', { name: 'start the game' }).click();
+  //This next step failed ⅔ of the time with the "superbly bad shuffle":
+  await expect(hostPage.locator('body')).toContainText('Time for a nice round of Quiplibre!');
+
+  //TODO: validate the rest of the test steps, which I just LLM-blasted in here mostly, and will get to reviewing after this failing step
+
+  // Have each player answer the first prompt
+  for (const additionalPage of additionalPages) {
+    await additionalPage.locator('#prompt').waitFor({ state: 'visible', timeout: 10000 });
+    await additionalPage.locator('#inputBox').fill('first answer from player');
+    await additionalPage.locator('input[type="submit"]').click();
+  }
+
+  // Have each player answer the second prompt
+  for (const additionalPage of additionalPages) {
+    await additionalPage.locator('#prompt').waitFor({ state: 'visible', timeout: 10000 });
+    await additionalPage.locator('#inputBox').fill('second answer from player');
+    await additionalPage.locator('input[type="submit"]').click();
+  }
+
+  // After both answers from each player, the host should show the judgement view with "OR" between options
+  await expect(hostPage.locator('body')).toContainText('OR', { timeout: 10000 });
 
   //TODO: write the rest of a test session
+
 });

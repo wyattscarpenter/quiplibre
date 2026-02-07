@@ -195,10 +195,12 @@ function nextRound(){
       allPlayers(p => {p.prompts = []; p.answers = []});
       var len = players.length
       for (var i=0; i<len; ++i) { //could: refactor this to use allPlayers
-        //TODO: this is an embarassingly naive shuffle function and easily crashes in the 3-player case 50% of the time.
+        //TODO: this is an embarrassingly naive shuffle function and easily crashes in the 3-player case 50% of the time.
         const pr = pullPrompt();
         const pli = players[i];
         const plr = pullRandomPlayer(players[i]);
+        console.log("MATCHUP:", pli, "VS.", plr, ": ", pr);
+        console.assert(pli); console.assert(plr); console.assert(pr);
         playerMatchups.push([pli, plr, pr]);
         pli.prompts[0] = pr;
         plr.prompts[1] = pr;
