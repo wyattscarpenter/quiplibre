@@ -5,7 +5,7 @@
   "main": "quiplibre.html",
   "remark on check script": "I don't expect this check to actually pass, it's just another analysis of the code which is sometimes useful. Also, I discard its error code.",
   "scripts": {
-    "check": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const m=fs.readFileSync('quiplibre.html','utf8').match(/<script>\\s*([\\s\\S]*?)\\s*<\\/script>/);if(!m)process.exit(0);fs.writeFileSync('.__tmp.ts',m[1]);try{execSync('npx tsc --noEmit .__tmp.ts',{stdio:'inherit'})}catch(e){}fs.unlinkSync('.__tmp.ts')\""
+    "check": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const m=fs.readFileSync('quiplibre.html','utf8').match(/<script>\\s*([\\s\\S]*?)\\s*<\\/script>/);if(!m)process.exit(0);fs.writeFileSync('.__tmp.ts',m[1]);try{execSync('tsc --noEmit .__tmp.ts',{stdio:'inherit'})}catch(e){}fs.unlinkSync('.__tmp.ts')\""
   },
   "repository": {
     "type": "git",
