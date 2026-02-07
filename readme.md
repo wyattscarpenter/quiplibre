@@ -55,6 +55,7 @@ This project depends on various other things, such as PeerJS, unpkg.com, the tex
 Games that are like [Quiplash](https://www.jackboxgames.com/quiplash/) could perhaps be called "quip games" or "quiplikes". At time of writing (2023-09-07) here are the quiplikes I know about:
 
 * alternativeto.net lists 16 alternatives to quiplash, many of them quiplikes, including this one https://alternativeto.net/software/quiplash/
+* [Use Your Words](https://useyourwords.lol/) 1 and 2, "The 'Use Your Words' Games!", seem to be similar.
 * [Quibbl.in](http://web.archive.org/web/20230628130022/https://quibbl.in/), although I get the impression that it is now defunct
 * [QwiqWit.com](https://www.qwiqwit.com), also described here: http://paulwind.com/work/qwiqwit
 * there are several versions of Quiplash published by Jackbox Games, which I guess are technically quiplikes
