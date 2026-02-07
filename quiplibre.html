@@ -187,18 +187,39 @@ Player.prototype.toString = function(){return this.name};
 // big screen game logic fns
 function nextRound(){
   if (players.length <= 1){
-    console.log(players.length, "players, that's not enough");
+    console.log(players.length, "players, that's not enough"); //wow, just like Jesus said about the swords, but the opposite!
   } else {
     gameBegun = true;
     round++;
     if (round <= maxRounds){
-      allPlayers(p => {p.prompts = []; p.answers = []});
-      var len = players.length
-      for (var i=0; i<len; ++i) { //could: refactor this to use allPlayers
-        //TODO: this is an embarrassingly naive shuffle function and easily crashes in the 3-player case 50% of the time.
+      allPlayers(p => {p.prompts = []; p.answers = []}); //reset this relevant info
+      const len = players.length;
+      //This "superbowl shuffle" algorithm is expounded upon in the readme.
+      //hidden in this function, not leaking outside, we can use blessed snake case
+      const new_arr = players.slice(); //use slice to shallow-copy array. The array ref is const but we will mutate it.
+      //rotate the new array, randomly choosing direction for extra uncertainty
+      is_rotate_rightwards = (Math.random() < 0.5);
+      if (is_rotate_rightwards){
+        new_arr.unshift(new_arr.pop()); //thanks to https://stackoverflow.com/a/23368052 for these slick idioms
+      } else {
+        new_arr.push(new_arr.shift());
+      }
+      // Now, randomly permutate the array, subject to our constraints:
+      for (var i=0; i<len; ++i) {
+        const random_index = randInt(len);
+        if ( (new_arr[i] == players[random_index]) || (players[i] == new_arr[random_index]) ) {
+          continue;
+        } else { //swap:
+          const tmp = new_arr[i];
+          new_arr[i] = new_arr[random_index];
+          new_arr[random_index] = tmp;
+        }
+      }
+      //Now, using our players array and randomized players array, populate the matchups
+      for (var i=0; i<len; ++i) {
         const pr = pullPrompt();
         const pli = players[i];
-        const plr = pullRandomPlayer(players[i]);
+        const plr = new_arr[i];
         console.log("MATCHUP:", pli, "VS.", plr, ": ", pr);
         console.assert(pli); console.assert(plr); console.assert(pr);
         playerMatchups.push([pli, plr, pr]);
@@ -279,27 +300,6 @@ function pullPrompt(){
       + "as you have exhausted our list of prompts)";
   }
   return prompts.splice(Math.floor(Math.random()*prompts.length), 1)[0];
-}
-
-randomPlayers = [];
-function pullRandomPlayer(excludedPlayer){
-  /** Pull, without replacement, a random player from the stateful (auto-refreshing) backing array of this fn.
-   * @param excludedPlayer is just a reference to a player, who cannot be picked
-   * It's your responsibility as a caller to never pull when
-   *   there's only the excludedPlayer in the backing array. Think about it!
-   *   (Luckily, this function is only ever used in one place lol.)
-  */
-  if (randomPlayers.length == 0) {
-    // If we've pulled everyone, use slice to shallow-copy array again.
-    randomPlayers = players.slice()
-  }
-  //hidden in this function, not leaking outside, we can use blessed snake case
-  const choosable_players = randomPlayers.filter(p => p != excludedPlayer);
-  const random_choice_index = Math.floor(Math.random()*choosable_players.length);
-  const chosen_player = choosable_players[random_choice_index];
-  // Take the chosen player out of the backing array, then return.
-  randomPlayers = randomPlayers.filter(p => p != chosen_player)
-  return chosen_player;
 }
 
 function allPlayers(pred){

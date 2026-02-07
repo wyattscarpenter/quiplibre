@@ -9,6 +9,7 @@ test('has right title', async ({ page }) => {
 });
 
 test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, context }) => {
+  // You can't see Math.random, so... just run this test a couple times, I guess.
   const n = 3; // Number of players
 
   hostPage.on('pageerror', (error) => {throw error;}); //This will fail the test on any unhandled error, allegedly, although I'm having a hard time getting that to happen. cf also below
@@ -42,7 +43,7 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   for (const additionalPage of additionalPages) {
     await expect(additionalPage.locator('body')).toContainText('What is your name?', { timeout: 2000 });
   }
-  //I'm not worried about testing the actual name-setting logic. They can have default names.
+  //I'm not worried about testing the actual name-setting logic. They can have default names. Could: test that, I suppose.
 
   //start the game proper
   await hostPage.getByRole('button', { name: 'start the game' }).click();
@@ -66,6 +67,6 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   // After both answers from each player, the host should show the judgement view with "OR" between options
   await expect(hostPage.locator('body')).toContainText('OR', { timeout: 10000 });
 
-  //could: write the rest of a test session, maybe even replay the game
+  //could: write the rest of a test session, maybe even go forth to a replay to make sure the game still works then
 
 });
