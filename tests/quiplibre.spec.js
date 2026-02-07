@@ -11,7 +11,7 @@ test('has right title', async ({ page }) => {
 test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, context }) => {
   // You can't see Math.random, so... just run this test a couple times, I guess.
   //  Furthermore, the networking in the tests are real and thus have random latency. I have tried to set large maximum timeouts to prevent false positive test failures, but it's bound to happen eventually. Especially if you disconnect from wifi during ;)
-  const n = 3; // Number of players
+  const n = 3; // Number of players //Could: vary between [1, 2, 3, 4, 5, 21, 100]. Note that 1 is special as it will not start.
 
   hostPage.on('pageerror', (error) => {throw error;}); //This will fail the test on any unhandled error, allegedly, although I'm having a hard time getting that to happen. cf also below
   // You can listen for all console logs by uncommenting this (see also below for the players)
@@ -70,6 +70,6 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   // After both answers from each player, the host should show the judgement view with "OR" between options
   await expect(hostPage.locator('body')).toContainText('OR', { timeout: 10000 });
 
-  //could: write the rest of a test session, maybe even go forth to a replay to make sure the game still works then
+  //could: write the rest of a test session, maybe even go forth to a replay to make sure the game still works then. An LLM that can see all the code would probably do a passable job a this.
 
 });
