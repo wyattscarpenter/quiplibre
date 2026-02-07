@@ -3,7 +3,9 @@
   "version": "2.3.0-dev",
   "description": "A party game about answering prompts cleverly.",
   "main": "quiplibre.html",
-  "scripts": {},
+  "scripts": {
+    "check": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const m=fs.readFileSync('quiplibre.html','utf8').match(/<script>\\s*([\\s\\S]*?)\\s*<\\/script>/);if(!m)process.exit(0);fs.writeFileSync('.__tmp.ts',m[1]);execSync('npx tsc --noEmit .__tmp.ts',{stdio:'inherit'});fs.unlinkSync('.__tmp.ts')\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wyattscarpenter/quiplibre.git"
@@ -18,6 +20,7 @@
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.2.1",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "typescript": "^5.9.3"
   }
 }
