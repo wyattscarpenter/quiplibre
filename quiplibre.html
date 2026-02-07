@@ -37,8 +37,8 @@ function errorAlert(error){
 }
 
 function join(name){
-  roomid = toQuiplibreRoomId(name);
-  var peer = new Peer({debug: 3});
+  const roomid = toQuiplibreRoomId(name);
+  const peer = new Peer({debug: 3});
   peer.on('error', errorAlert);
   peer.on('open', function(id) {
     console.log('My peer ID is: ' + id);
@@ -57,8 +57,8 @@ function join(name){
 
 function host(name){
   //connect
-  roomid = toQuiplibreRoomId(name);
-  var peer = new Peer(roomid,{debug: 3});
+  const roomid = toQuiplibreRoomId(name);
+  const peer = new Peer(roomid,{debug: 3});
   peer.on('error', errorAlert);
   peer.on('open', function(id) {
     console.log('My peer ID is: ' + id);
@@ -198,7 +198,7 @@ function nextRound(){
       //hidden in this function, not leaking outside, we can use blessed snake case
       const new_arr = players.slice(); //use slice to shallow-copy array. The array ref is const but we will mutate it.
       //rotate the new array, randomly choosing direction for extra uncertainty
-      is_rotate_rightwards = (Math.random() < 0.5);
+      const is_rotate_rightwards = (Math.random() < 0.5);
       if (is_rotate_rightwards){
         new_arr.unshift(new_arr.pop()); //thanks to https://stackoverflow.com/a/23368052 for these slick idioms
       } else {
@@ -304,7 +304,7 @@ function pullPrompt(){
 
 function allPlayers(pred){
   /** query all players or apply a fn to them */
-  ret = true;
+  let ret = true;
   var len = players.length
   for (var i=0; i<len; ++i) {
     ret = (pred(players[i])) && ret; //must avoid short-circuit eval
