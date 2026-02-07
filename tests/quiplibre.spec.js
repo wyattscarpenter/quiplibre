@@ -11,7 +11,7 @@ test('has right title', async ({ page }) => {
 test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, context }) => {
   const n = 3; // Number of players
 
-  hostPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error
+  hostPage.on('pageerror', (error) => {throw error;}); //This will fail the test on any unhandled error, allegedly, although I'm having a hard time getting that to happen. cf also below
   // You can listen for all console logs by uncommenting this (see also below for the players)
   hostPage.on('console', msg => console.log(msg.text()));
   
@@ -30,7 +30,7 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   const additionalPages = [];
   for (let i = 0; i < n; i++) {
     const newPage = await context.newPage();
-    newPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error (although the output is often confusing and doesn't immediately halt the test, it seems)
+    newPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error
     //newPage.on('console', msg => console.log(msg.text()));
     await newPage.goto('http://localhost:8080/quiplibre.html');
     await newPage.getByRole('textbox').fill('delicious test value');
@@ -49,8 +49,6 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   //This next step failed ⅔ of the time with the "superbly bad shuffle":
   await expect(hostPage.locator('body')).toContainText('Time for a nice round of Quiplibre!');
 
-  //TODO: validate the rest of the test steps, which I just LLM-blasted in here mostly, and will get to reviewing after this failing step
-
   // Have each player answer the first prompt
   for (const additionalPage of additionalPages) {
     await additionalPage.locator('#prompt').waitFor({ state: 'visible', timeout: 10000 });
@@ -68,6 +66,6 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   // After both answers from each player, the host should show the judgement view with "OR" between options
   await expect(hostPage.locator('body')).toContainText('OR', { timeout: 10000 });
 
-  //TODO: write the rest of a test session
+  //could: write the rest of a test session, maybe even replay the game
 
 });
