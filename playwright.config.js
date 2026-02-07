@@ -75,7 +75,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npx http-server -p 8080 .',
+    command: 'http-server -p 8080 .',
     url: 'http://localhost:8080',
     //I'm not sure if this would mess something up, so I didn't enable it:
     //reuseExistingServer: !process.env.CI,

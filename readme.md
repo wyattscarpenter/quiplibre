@@ -67,9 +67,18 @@ Games that are like [Quiplash](https://www.jackboxgames.com/quiplash/) could per
 
 This project uses Playwright for some basic testing. This means it has the scaffolding of an npm project, even though it's really just an html file. The tests are rather shallow, because I ran out of patience about them. They may also be flaky.
 
-I tried to convince tsc to typecheck the js in the html for me, as an additional static check, but it did not want to operate on that file extension, alas. Sad!
+I tried to convince tsc to typecheck the js in the html for me, as an additional static check, but it did not want to operate on that file extension, alas. Sad! So, we do a little scripting, and get it to work. It doesn't *pass* a tsc check (tsc doesn't know what a lot of the variables are since they can't be statically determined), but it was cool to get reminded that I should const a few vars. This is available as `npm check`, although, as I just said, I don't expect that check to pass. Side note on const: I've always found it unintuitive that when you const an object — and most variables store objects in a system like this — it consts the object reference but still lets the object itself mutate. I understand how this works, and why, since I understand pointers, but it "seems" wrong. So, if you're like me, keep that in mind while reading the code, if you read it; I const a lot of objects and then mutate them anyway. Arrays are also objects in this sense btw.
 
 According to my attempts at autonomous testing, webkit browsers do not support WebRTC/PeerJS, or vice-versa. So Quiplibre won't work on them. Please let me know if that's right or wrong. Especially if you can fix the error I encountered during testing! I do not have access to a webkit browser myself (Safari, etc); and the failure is surprising given what they claim to support. Some of the information on https://www.kirsle.net/journey-to-get-webrtc-working-well-in-safari might be relevant to this.
+
+Due I guess to the fact that http-server hasn't updated in 4 years, when I run the tests I get the following deprecation message:
+
+```
+[WebServer] (node:1444) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+[WebServer] (Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+I don't really care about that, but if the test setup stops working, guess you should... find a different http server package. It's only used for the test setup, anyway.
 
 ### The superbowl shuffle
 
