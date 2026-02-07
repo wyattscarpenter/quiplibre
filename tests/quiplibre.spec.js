@@ -10,18 +10,19 @@ test('has right title', async ({ page }) => {
 
 test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, context }) => {
   // You can't see Math.random, so... just run this test a couple times, I guess.
-  //  Furthermore, the networking in the tests are real and thus have random latency. I have tried to set large maximum timeouts to prevent false positive (failures) but it's bound to happen eventually. Especially if you disconnect from wifi ;)
-  //  ...Seems like it sometimes fails for firefox as well, on a step (joining) where I wouldn't expect a logic error in *my* program to be possible...
+  //  Furthermore, the networking in the tests are real and thus have random latency. I have tried to set large maximum timeouts to prevent false positive test failures, but it's bound to happen eventually. Especially if you disconnect from wifi during ;)
   const n = 3; // Number of players
 
   hostPage.on('pageerror', (error) => {throw error;}); //This will fail the test on any unhandled error, allegedly, although I'm having a hard time getting that to happen. cf also below
   // You can listen for all console logs by uncommenting this (see also below for the players)
-  hostPage.on('console', msg => console.log(msg.text()));
+  //hostPage.on('console', msg => console.log(msg.text()));
+
+  const room_id_str = 'delicious test value'+Math.random() // This is randomized a little to help prevent failures from trying to grab one that's already taken. Especially when it isn't already taken anymore, but we're grabbing it a little too fast for peerjs to know this...
   
   await hostPage.goto('http://localhost:8080/quiplibre.html');
 
   // Input text into the text box and click join (host)
-  await hostPage.getByRole('textbox').fill('delicious test value');
+  await hostPage.getByRole('textbox').fill(room_id_str);
   await hostPage.getByRole('button', { name: 'host' }).click();
   // Expect host page to include the joinable url
   await expect(hostPage.locator('body')).toContainText('#delicioustestvalue');
@@ -34,9 +35,9 @@ test('play a nice game of quiplibre with 3 people', async ({ page: hostPage, con
   for (let i = 0; i < n; i++) {
     const newPage = await context.newPage();
     newPage.on('pageerror', (error) => {throw error;}); //fail the test on any unhandled error
-    newPage.on('console', msg => console.log(msg.text()));
+    //newPage.on('console', msg => console.log(msg.text()));
     await newPage.goto('http://localhost:8080/quiplibre.html');
-    await newPage.getByRole('textbox').fill('delicious test value');
+    await newPage.getByRole('textbox').fill(room_id_str);
     await newPage.getByRole('button', { name: 'join' }).click();
     additionalPages.push(newPage);
   }
