@@ -71,7 +71,7 @@ I tried to convince tsc to typecheck the js in the html for me, as an additional
 
 According to my attempts at autonomous testing, webkit browsers do not support WebRTC/PeerJS, or vice-versa. So Quiplibre won't work on them. Please let me know if that's right or wrong. Especially if you can fix the error I encountered during testing! I do not have access to a webkit browser myself (Safari, etc); and the failure is surprising given what they claim to support. Some of the information on https://www.kirsle.net/journey-to-get-webrtc-working-well-in-safari might be relevant to this.
 
-Due I guess to the fact that http-server hasn't updated in 4 years, when I run the tests I get the following deprecation message:
+Due, I guess, to the fact that http-server hasn't updated in 4 years, when I run the tests I get the following deprecation message:
 
 ```
 [WebServer] (node:1444) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
@@ -107,7 +107,7 @@ Here, the algorithm has selected 2 to fight 1 and 1 to fight 2. Therefore, its l
     1 2 3
     2 3 1
 
-Oh — actually, I've learned that due to a bug in my random selection algorithm, this was always wrong, and would always fail for any number of players greater than 2. 2 being, unfortunately, the main way I would manually test it. The bug was: unlike every other random choice algorithm in this program, for this I wrote rand*(length-1) instead of rand*length. This was presumably because I had previously written it rand*(length-1) for the length of the unfiltered array, and when I started using the filtered array length directly I forgot to change it to not subtract 1. So, it would never be allowed to pick the last element, and thus always crash. It would be bad even without this bug, as it would sometimes not work, but never working is even worse.
+Oh — actually, I've learned that due to a bug in my random selection algorithm, this was always wrong, and would always fail for any number of players greater than 2. 2 being, unfortunately, the main way I would manually test it. The bug was: unlike every other random choice algorithm in this program, for this I wrote rand×(length-1) instead of rand×length. This was presumably because I had previously written it rand×(length-1) for the length of the unfiltered array, and when I started using the filtered array length directly I forgot to change it to not subtract 1. So, it would never be allowed to pick the last element, and thus always crash. It would be bad even without this bug, as it would sometimes not work, but never working is even worse.
 
 It's worth noting that this is actually worse than the dullard's shuffle and the ordinary shuffle, because it crashes the program. Let's call this the "superbly bad shuffle".
 
