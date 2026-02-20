@@ -52,7 +52,7 @@ This project depends on various other things, such as PeerJS, unpkg.com, the tex
 
 ## On The Category Of Games That Are Like Quiplash
 
-Games that are like [Quiplash](https://www.jackboxgames.com/quiplash/) could perhaps be called "quip games" or "quiplikes". At time of writing (2023-09-07) here are the quiplikes I know about:
+Games that are like [Quiplash](https://www.jackboxgames.com/quiplash/) could perhaps be called "quip games" or "quiplikes". At time of writing (2026-02-07) here are the quiplikes I know about:
 
 * alternativeto.net lists 16 alternatives to quiplash, many of them quiplikes, including this one https://alternativeto.net/software/quiplash/
 * [Use Your Words](https://useyourwords.lol/) 1 and 2, "The 'Use Your Words' Games!", seem to be similar.
